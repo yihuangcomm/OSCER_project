@@ -15,8 +15,8 @@ Software:
 - scikit-learn      0.24.1
 - scipy             1.6.2
 - sklearn-crfsuite  0.3.6
-- 
-- OS: Red Hat Enterprise Linux Server release 7.9 
+
+OS: Red Hat Enterprise Linux Server release 7.9 
 
 Hardware:
 - CPU number: 1

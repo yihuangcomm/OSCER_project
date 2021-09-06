@@ -1,5 +1,5 @@
 # OSCER_project
-A NER(Named-entity recognition)  model to detect the entities from the given texts.
+A NER(Named-entity recognition)  model to detect the entities from the given texts. 
 ## Requirements
 Experiments were implemented on the high performance computing (HPC) Platform of a University.
 
@@ -34,4 +34,6 @@ train.tsv: dataset to train the model
 ## Run step
 - python3 pipeline.py  
 
-
+## References
+https://sklearn-crfsuite.readthedocs.io/en/latest/tutorial.html#hyperparameter-optimization
+https://sklearn-crfsuite.readthedocs.io/en/latest/api.html#sklearn_crfsuite.CRF

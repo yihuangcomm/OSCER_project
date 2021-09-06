@@ -31,7 +31,7 @@ test.tsv: dataset to evaluate the model
 
 train.tsv: dataset to train the model
 
-## run step
+## Run step
 - python3 pipeline.py  
 
 

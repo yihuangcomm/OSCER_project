@@ -24,10 +24,10 @@ Hardware:
 - CPU RAM: 4000MB
 
 ## Data
-All data is in /NERdata
-The entities are tagged in BIO format
+All data is in /NERdata. The entities are tagged in BIO format
 
 test.tsv: dataset to evaluate the model
+
 train.tsv: dataset to train the model
 
 ## run step

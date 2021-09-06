@@ -10,7 +10,7 @@ from sklearn_crfsuite import metrics
 if __name__ == '__main__':
 
     Flags = gflags.FLAGS
-    gflags.DEFINE_string("alg", "lbfgs", "lbfgs, l2sgd ,ap, pa, arow")
+    gflags.DEFINE_string("alg", "lbfgs", "training algorithm : lbfgs, l2sgd ,ap, pa, arow")
     gflags.DEFINE_float("l1", 0.1, "the coefficient for L1 regularization. Supported training algorithms: lbfgs")  
     gflags.DEFINE_float("l2", 0.1, "the coefficient for L2 regularization.Supported training algorithms: l2sgd, lbfgs")
     gflags.DEFINE_integer("max_iter", 1000, "number of iterations before stopping")
@@ -20,20 +20,23 @@ if __name__ == '__main__':
     gflags.DEFINE_string("test_path", "../NERdata/test.tsv", 'path of testing file')       
     Flags(sys.argv)
 
-#Loading trainig and test data
+#Loading trainig and test data from given path
 
 train_data = pd.read_csv (Flags.train_path, sep = '\t', engine='python', header=None).loc[:]
 test_data = pd.read_csv (Flags.test_path, sep = '\t', engine='python', header=None).loc[:]
 
+# Handle unknown values
 train_data = train_data.fillna(method='ffill')
-train_data = np.array(train_data)
-
 test_data = test_data.fillna(method='ffill')
+
+train_data = np.array(train_data)
 test_data = np.array(test_data)
-    
+
+# Split sentences from original data
 train_sents = make_sents(train_data)
 test_sents = make_sents(test_data)
 
+# Generate the features, labels, and tokens of the training and test data 
 X_train = [sent2features(train_sents[i]) for i in range(len(train_sents))]
 X_test = [sent2features(test_sents[i]) for i in range(len(test_sents))]
     
@@ -42,7 +45,7 @@ y_test = [sent2labels(test_sents[i]) for i in range(len(test_sents))]
 
 token_test = [sent2tokens(test_sents[i]) for i in range(len(test_sents))]
 
-# hyperparameters optimization
+# hyperparameters optimization, here we only try to seek best performing l1 and l2. We also can combine various algrithoms into this optimization.
 
 L_list = list(range(11))
 F1_scores = []
@@ -65,9 +68,10 @@ for i in L_list:
 # Fit the best model
 best_model, labels = main(train_features=X_train, train_labels=y_train, alg=Flags.alg, l1=best_l1, l2=best_l2, max_iter=1000)
 
-# Evaluate the performance and output the result
+# Evaluate the performance
 f1_score, y_pred = evaluation(model=best_model, test_features=X_test, test_labels=y_test, labels=labels)
 
+# Output the detected entities
 Entities = output_entity(token_test, y_pred)
 Entities = set(Entities)
 print('Entities:%s' % (str(Entities)))

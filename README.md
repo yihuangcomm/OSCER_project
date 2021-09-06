@@ -1,8 +1,9 @@
 # OSCER_project
 A NER(Named-entity recognition)  model to detect the entities from the given texts.
 ## Requirements
-### Experiments were implemented on the high performance computing (HPC) Platform of a University. 
-### Experiments enviroments settings are as below:
+Experiments were implemented on the high performance computing (HPC) Platform of a University.
+
+Experiments enviroments settings are as below:
 
 Software:
 
